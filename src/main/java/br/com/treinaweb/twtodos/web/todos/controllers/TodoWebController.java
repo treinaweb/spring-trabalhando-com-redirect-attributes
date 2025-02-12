@@ -43,7 +43,8 @@ public class TodoWebController {
     public String create(
         @Valid TodoForm todoForm,
         BindingResult bindingResult,
-        Model model
+        Model model,
+        RedirectAttributes attrs
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("pageTitle", "Criar nova tarefa");
@@ -51,6 +52,7 @@ public class TodoWebController {
         }
 
         todoService.create(todoForm);
+        attrs.addFlashAttribute("toast", "Tarefa criada com sucesso!");
         return "redirect:/todos";
     }
 
@@ -69,7 +71,8 @@ public class TodoWebController {
         @PathVariable Long id,
         @Valid TodoForm todoForm,
         BindingResult bindingResult,
-        Model model
+        Model model,
+        RedirectAttributes attrs
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("pageTitle", "Editar tarefa");
@@ -77,12 +80,13 @@ public class TodoWebController {
         }
 
         todoService.update(id, todoForm);
+        attrs.addFlashAttribute("toast", "Tarefa editada com sucesso!");
         return "redirect:/todos";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes attrs) {
-        attrs.addFlashAttribute("mensagem", "minha mensagem");
+        attrs.addFlashAttribute("toast", "Tarefa excluída com sucesso!");
         todoService.delete(id);
         return "redirect:/todos";
     }
