@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.treinaweb.twtodos.web.common.dtos.FlashMessage;
 import br.com.treinaweb.twtodos.web.todos.dtos.TodoForm;
 import br.com.treinaweb.twtodos.web.todos.services.TodoService;
 import jakarta.validation.Valid;
@@ -52,7 +53,7 @@ public class TodoWebController {
         }
 
         todoService.create(todoForm);
-        attrs.addFlashAttribute("toast", "Tarefa criada com sucesso!");
+        attrs.addFlashAttribute("toast", FlashMessage.success("Tarefa criada com sucesso!"));
         return "redirect:/todos";
     }
 
@@ -80,13 +81,13 @@ public class TodoWebController {
         }
 
         todoService.update(id, todoForm);
-        attrs.addFlashAttribute("toast", "Tarefa editada com sucesso!");
+        attrs.addFlashAttribute("toast", FlashMessage.success("Tarefa editada com sucesso!"));
         return "redirect:/todos";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes attrs) {
-        attrs.addFlashAttribute("toast", "Tarefa excluída com sucesso!");
+        attrs.addFlashAttribute("toast", FlashMessage.success("Tarefa excluída com sucesso!"));
         todoService.delete(id);
         return "redirect:/todos";
     }

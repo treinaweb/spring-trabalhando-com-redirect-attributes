@@ -56,17 +56,24 @@
       feather.replace();
 
       // Toastify
-      const message = /*[[${toast}]]*/ "";
+      const styles = {
+        SUCCESS: {
+          background: "linear-gradient(to right, #4CAF50, #4CAF50)",
+        },
+        ERROR: {
+          background: "linear-gradient(to right, #FF416C, #FF4B2B)",
+        },
+      };
 
-      if (message != null) {
+      const toast = /*[[${toast}]]*/ "";
+
+      if (toast != null) {
         Toastify({
-          text: message,
+          text: toast.message,
           duration: 3000,
           close: true,
           stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-          },
+          style: styles[toast.type],
         }).showToast();
       }
     </script>
